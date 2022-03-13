@@ -1,0 +1,17 @@
+{
+  "token": "5247650905:AAFJCY5JOQ-q2c6sLCPDDH5MkTN2p1-NpyI",
+  "database": {
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "",
+    "database": "tg-like-bot"
+  },
+  "logger": {
+    "warns": true,
+    "errors": true,
+    "logs": true,
+    "debugs": true
+  },
+  "admins": [671209712, 620837403]
+}

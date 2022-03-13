@@ -1,0 +1,1 @@
+export const getStartAdminMessage = () => `Вы попали в панель управления ботом!`;
