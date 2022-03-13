@@ -3,7 +3,7 @@ import { ChannelsModel, SubsModel } from "../models";
 export const getStartAdminMessage = () => `Вы попали в панель управления ботом!`;
 
 export const getChannelsList = (channels: ChannelsModel[]) => {
-  let message = `Привет! Все фильмы с TikTok мы собрали в этом сообществе. Подпишись сначала на наши каналы и получи то, что искал!\n\n`;
+  let message = `Привет! Все фильмы с TikTok мы собрали в этом боте. Подпишись сначала на наши каналы и получи то, что искал!\n\n`;
 
   message += channels.map(x => `> <a href="${x.type == 'link' ? x.link : `https://t.me/${x.link}`}">${x.name}</a>`).join('\n');
 
