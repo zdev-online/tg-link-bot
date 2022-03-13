@@ -1,7 +1,7 @@
 import Sessions from 'telegraf-session-local';
 import { bot, sequelize } from "./config";
 import handlers from './handlers';
-import { init_middleware, subs_check_middleware } from './middleware';
+import { init_middleware } from './middleware';
 import { stage } from "./scenes";
 import { logger } from "./utils";
 
@@ -22,6 +22,5 @@ bootstrap();
 bot.on('message', init_middleware);
 bot.on('message', new Sessions({ storage: Sessions.storageMemory }));
 bot.on('message', stage.middleware());
-bot.on('message', subs_check_middleware);
 
 handlers(bot);
