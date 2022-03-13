@@ -8,6 +8,7 @@ import { logger } from "./utils";
 async function bootstrap() {
   try {
     await sequelize.authenticate();
+    await sequelize.sync({ alter: true, force: true });
     logger.log(`Успешное подключение к базе данных!`);
     await bot.launch({ dropPendingUpdates: true });
     logger.log(`Успешное подключение к telegram!`);

@@ -35,7 +35,7 @@ check_step.hears(SUB_BUTTON, async ctx => {
   return await ctx.replyWithHTML(ctx.scene.session.message, getUserSubKeyboard());
 });
 
-const subscribe_to_channel_scene = new Scenes.WizardScene<BotContext>(SUB_TO_CHANNELS_SCENE);
+const subscribe_to_channel_scene = new Scenes.WizardScene<BotContext>(SUB_TO_CHANNELS_SCENE, check_step);
 
 subscribe_to_channel_scene.enter(async ctx => {
   if (!ctx.from) { return; }

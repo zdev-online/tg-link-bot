@@ -5,7 +5,7 @@ import { NEXT_PAGE, PREV_PAGE } from "../keyboard.buttons";
 import { getChannelStatsKeyboard } from "../keyboards";
 import { ChannelsModel, SubsModel } from "../models";
 import { CHANNEL_STATS_SCENE } from "../scene.ids";
-import { chunkArray, getFullChannelStats } from "../utils";
+import { chunkArray, getAdminChannelsList, getFullChannelStats } from "../utils";
 
 const select_step = new Composer<BotContext>();
 
@@ -20,7 +20,7 @@ select_step.hears(PREV_PAGE, async ctx => {
 });
 
 select_step.hears(/^\#[1-5]$/i, async ctx => {
-  const id: number = Number(ctx.message.text.replace('#', ''));
+  const id: number = Number(ctx.message.text.replace('#', '')) - 1;
   const channel: ChannelsModel = ctx.scene.session.pages[ctx.scene.session.page][id];
 
   const subs = await SubsModel.findAll({
@@ -33,11 +33,13 @@ select_step.hears(/^\#[1-5]$/i, async ctx => {
     return await ctx.replyWithHTML("Статистики для этого канала пока что нет! (Ещё никто не подписался)");
   }
 
-  return await ctx.replyWithHTML(getFullChannelStats(channel, subs));
+  return await ctx.replyWithHTML(getFullChannelStats(channel, subs), { 
+    disable_web_page_preview: true 
+  });
 });
 
 
-const channel_stats_scene = new Scenes.WizardScene<BotContext>(CHANNEL_STATS_SCENE);
+const channel_stats_scene = new Scenes.WizardScene<BotContext>(CHANNEL_STATS_SCENE, select_step);
 
 channel_stats_scene.enter(async ctx => {
   const channels = await ChannelsModel.findAll({
@@ -58,7 +60,10 @@ channel_stats_scene.enter(async ctx => {
   ctx.scene.session.pages = pages;
   ctx.scene.session.page = page;
 
-  return await ctx.replyWithHTML("", getChannelStatsKeyboard(pages, page));
+  return await ctx.replyWithHTML(getAdminChannelsList(pages, page), {
+    ...getChannelStatsKeyboard(pages, page),
+    disable_web_page_preview: true
+  });
 });
 
 export { channel_stats_scene }

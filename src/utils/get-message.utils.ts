@@ -38,3 +38,10 @@ export const getFullChannelStats = (channel: ChannelsModel, subs: SubsModel[]): 
   });
   return message; 
 }
+
+export const getAdminChannelsList = (pages: ChannelsModel[][], page: number) => {
+  let message = `Список каналов. Страница ${page + 1}/${pages.length}:\n`;
+  message += pages[page].map((x, i) => `${i + 1}. <a href="${x.type == 'link' ? x.link : `https://t.me/${x.link}`}">${x.name}</a>`).join('\n');
+  message += `\n\nНажмите кнопку с номером канала, чтобы получить статистику!`;
+  return message;
+}

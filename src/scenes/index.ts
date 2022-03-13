@@ -20,6 +20,7 @@ const stage = new Scenes.Stage<BotContext>([
 
 stage.hears(CONTROL_PANEL, async ctx => {
   if (is_admin(ctx.from.id)) {
+    await ctx.scene.leave();
     return await ctx.replyWithHTML(getStartAdminMessage(), getAdminKeyboard());
   }
 });

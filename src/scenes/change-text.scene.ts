@@ -10,10 +10,13 @@ const get_text = new Composer<BotContext>();
 get_text.on('text', async ctx => {
   saveDataToFile(ctx.message.text);
   await ctx.scene.leave();
-  return await ctx.replyWithHTML(`Новая ссылка на канал выглядит так: ${getLinkedTextFromFile()}`, getAdminKeyboard());
+  return await ctx.replyWithHTML(`Новая ссылка на канал выглядит так: ${getLinkedTextFromFile()}`, { 
+    ...getAdminKeyboard(),
+    disable_web_page_preview: true 
+  });
 });
 
-const change_text_scene = new Scenes.WizardScene<BotContext>(CHANGE_TEXT_SCENE);
+const change_text_scene = new Scenes.WizardScene<BotContext>(CHANGE_TEXT_SCENE, get_text);
 
 change_text_scene.enter(async ctx => {
   return await ctx.replyWithHTML("<b>Пришли мне новый текст для ссылки на канал!</b>", Markup.keyboard([CONTROL_PANEL]).resize());

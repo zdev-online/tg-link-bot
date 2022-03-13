@@ -3,6 +3,8 @@ import { BaseError } from 'sequelize';
 import { Markup, Telegraf, TelegramError } from "telegraf";
 import * as logger from "./logger.utils";
 import { BotContext } from "../interfaces";
+import { is_admin } from "./is-admin.utils";
+import { getAdminKeyboard } from "../keyboards";
 
 export const error_handler = (ctx: BotContext, error: Error) => {
   let from = 'unknown';
@@ -18,7 +20,7 @@ export const error_handler = (ctx: BotContext, error: Error) => {
   }
 
   if (ctx?.scene?.current) {
-    ctx.scene.leave().catch(e => logger.error(`Не удалось отправить сообщение об ошибке: ${e.message}`));
+    ctx.scene.leave().catch(e => logger.error(`Не удалось выйти из сцены: ${e.message}`));
   }
-  ctx.replyWithHTML("").catch(e => logger.error(`Не удалось отправить сообщение об ошибке: ${e.message}`));
+  ctx.replyWithHTML("Произошла ошибка!", is_admin(ctx.from?.id || 0) ? getAdminKeyboard() : {}).catch(e => logger.error(`Не удалось отправить сообщение об ошибке: ${e.message}`));
 }
