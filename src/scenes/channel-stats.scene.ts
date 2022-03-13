@@ -53,7 +53,7 @@ select_step.hears(DELETE, async ctx => {
 
   await channel.destroy();
 
-  await ctx.replyWithHTML(`Канал <a href="${channel.type == 'link' ? channel.link : `https://t.me/${channel.link}`}">${channel.name}</a>`);
+  await ctx.replyWithHTML(`Канал <a href="${channel.type == 'link' ? channel.link : `https://t.me/${channel.link}`}">${channel.name}</a> - удален из обязательной подписки!`);
 
   return await ctx.scene.reenter();
 });
@@ -71,16 +71,10 @@ select_step.hears(BACK, async ctx => {
 const channel_stats_scene = new Scenes.WizardScene<BotContext>(CHANNEL_STATS_SCENE, select_step);
 
 channel_stats_scene.enter(async ctx => {
-  const channels = await ChannelsModel.findAll({
-    where: {
-      type: {
-        [Op.not]: 'link'
-      },
-    }
-  });
+  const channels = await ChannelsModel.findAll();
 
   if (!channels.length) {
-    return await ctx.replyWithHTML("Каналов в статистике нет!\nP.S Статистика учитывается только для каналов, добавленных через @channel_username");
+    return await ctx.replyWithHTML("Каналов в статистике нет!");
   }
 
   const pages = chunkArray(channels, 5);
