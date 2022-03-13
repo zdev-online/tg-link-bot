@@ -31,7 +31,7 @@ export const getFullChannelStats = (channel: ChannelsModel, subs: SubsModel[]): 
       days[idx].count++;
     }
   }
-  let message = `Статистика канала <a href="${channel.type == 'link' ? channel.link : `https://t.me/${channel.link}`}">${channel.name}</a>\n`;
+  let message = `Статистика канала <a href="${channel.type == 'link' ? channel.link : `https://t.me/${channel.link}`}">${channel.name}</a>:\n\n`;
   message += `Подписалось за всё время: ${channel.subs}\n\n`;
   days.forEach(x => {
     message += `За ${x.day} - подписалось ${x.count}\n`;

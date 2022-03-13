@@ -1,5 +1,5 @@
 import { Markup } from "telegraf";
-import { CONTROL_PANEL, NEXT_PAGE, PREV_PAGE } from "../keyboard.buttons";
+import { BACK, CONTROL_PANEL, DELETE, NEXT_PAGE, PREV_PAGE } from "../keyboard.buttons";
 import { ChannelsModel } from "../models";
 
 export const getChannelStatsKeyboard = (pages: ChannelsModel[][], page: number) => { 
@@ -20,4 +20,13 @@ export const getChannelStatsKeyboard = (pages: ChannelsModel[][], page: number) 
   ];
  
   return Markup.keyboard(keyboard).resize();
+}
+
+export const getChannelKeyboard = () => {
+  return Markup.keyboard([
+    [
+      Markup.button.text(DELETE),
+      Markup.button.text(BACK)
+    ]
+  ]).resize();
 }
