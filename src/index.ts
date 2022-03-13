@@ -2,13 +2,14 @@ import Sessions from 'telegraf-session-local';
 import { bot, sequelize } from "./config";
 import handlers from './handlers';
 import { init_middleware } from './middleware';
+import { ChannelsModel } from './models';
 import { stage } from "./scenes";
 import { logger } from "./utils";
 
 async function bootstrap() {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true, force: true });
+    await sequelize.sync({ alter: true });
     logger.log(`Успешное подключение к базе данных!`);
     await bot.launch({ dropPendingUpdates: true });
     logger.log(`Успешное подключение к telegram!`);
