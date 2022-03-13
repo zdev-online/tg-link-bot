@@ -1,4 +1,4 @@
-import { AutoIncrement, Column, DataType, Default, Model, PrimaryKey } from "sequelize-typescript";
+import { AutoIncrement, Column, DataType, Default, Model, PrimaryKey, Table } from "sequelize-typescript";
 import dayjs from "dayjs";
 
 interface ISubs {
@@ -10,6 +10,10 @@ interface ISubs {
 
 type ISubsCreate = Omit<ISubs, 'id' | 'date'>;
 
+@Table({
+  tableName: "link_bot_subs",
+  timestamps: true
+})
 export class SubsModel extends Model<ISubs, ISubsCreate> {
   @AutoIncrement
   @PrimaryKey
