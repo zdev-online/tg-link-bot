@@ -13,10 +13,10 @@ export const getLinkedTextFromFile = (): string => {
   return `<a href="${data.link}">${data.text}</a>`;
 }
 
-export const saveDataToFile = (text: string, link: string): IFile => {
+export const saveDataToFile = (text?: string, link?: string): IFile => {
   const data: IFile = JSON.parse(fs.readFileSync(path_to_file, { encoding: 'utf-8' }));
-  data.link = link;
-  data.text = text;
+  link && (data.link = link);
+  text && (data.text = text);
   fs.writeFileSync(path_to_file, JSON.stringify(data, null, 2));
   return data;
 } 
