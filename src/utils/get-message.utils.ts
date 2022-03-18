@@ -1,4 +1,5 @@
-import { ChannelsModel, SubsModel } from "../models";
+import { ChannelsModel, SubsModel, UsersModel } from "../models";
+import { IGetRefs } from "./get-refs.utils";
 
 export const getStartAdminMessage = () => `Вы попали в панель управления ботом!`;
 
