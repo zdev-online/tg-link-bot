@@ -36,11 +36,11 @@ select_step.hears(/^\#[1-5]$/i, async ctx => {
   });
 
   if (!subs.length) {
-    return await ctx.replyWithHTML("Статистики для этого канала пока что нет! (Ещё никто не подписался)", getChannelKeyboard());
+    return await ctx.replyWithHTML("Статистики для этого канала пока что нет! (Ещё никто не подписался)");
   }
 
   return await ctx.replyWithHTML(getFullChannelStats(channel, subs), {
-    disable_web_page_preview: true, ...getChannelKeyboard()
+    disable_web_page_preview: true
   });
 });
 

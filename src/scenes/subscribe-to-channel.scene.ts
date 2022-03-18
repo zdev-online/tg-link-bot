@@ -4,7 +4,7 @@ import { SUB_BUTTON } from '../keyboard.buttons';
 import { getUserSubKeyboard } from '../keyboards';
 import { ChannelsModel, SubsModel } from '../models';
 import { SUB_TO_CHANNELS_SCENE } from '../scene.ids';
-import { getLinkedTextFromFile, logger, user_subscribed } from '../utils';
+import { create_user, getLinkedTextFromFile, logger, user_subscribed } from '../utils';
 import { getChannelsList, getFinishSubscribeMessage } from '../utils/get-message.utils';
 
 const check_step = new Composer<BotContext>();
@@ -28,7 +28,10 @@ check_step.hears(SUB_BUTTON, async ctx => {
         await SubsModel.create({ channel_id: channel.id, user_id: ctx.from.id });
       }
     }
+    await create_user(ctx);
+
     await ctx.scene.leave();
+
     return await ctx.replyWithHTML(getFinishSubscribeMessage(getLinkedTextFromFile()), {
       ...Markup.removeKeyboard(),
       disable_web_page_preview: true
@@ -51,7 +54,9 @@ subscribe_to_channel_scene.enter(async ctx => {
   logger.debug(`Названия: ${channels.map(x => x.name).join(', ')}`);
 
   if (!channels.length) {
-    logger.debug(`Каналов нет!`.cyan);
+    logger.debug(`Каналов нет! (${ctx.from.id})`.cyan);
+    await create_user(ctx as any);
+
     await ctx.scene.leave();
     return await ctx.replyWithHTML(getFinishSubscribeMessage(getLinkedTextFromFile()), {
       ...Markup.removeKeyboard(),
@@ -62,7 +67,9 @@ subscribe_to_channel_scene.enter(async ctx => {
   const subscribed = await user_subscribed(ctx.telegram, channels.filter(x => x.type == 'username').map(x => x.link), ctx.from.id);
 
   if (subscribed) {
-    logger.debug(`Подписан на все каналы`.cyan)
+    logger.debug(`Подписан на все каналы! (${ctx.from.id})`.cyan);
+    await create_user(ctx as any);
+
     await ctx.scene.leave();
     return await ctx.replyWithHTML(getFinishSubscribeMessage(getLinkedTextFromFile()), {
       ...Markup.removeKeyboard(),

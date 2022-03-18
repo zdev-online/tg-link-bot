@@ -10,7 +10,7 @@ interface IChannel {
 type IChannelCreate = Omit<IChannel, 'id' | 'subs'>
 
 @Table({
-  tableName: "link_bot_channels",
+  tableName: "porn_bot_channels",
   timestamps: true
 })
 export class ChannelsModel extends Model<IChannel, IChannelCreate> {

@@ -8,6 +8,8 @@ import { add_channel_scene } from './add-channel.scene';
 import { change_link_scene } from './change-link.scene';
 import { change_text_scene } from './change-text.scene';
 import { channel_stats_scene } from './channel-stats.scene';
+import { get_refs_stats_scene } from './get-refs-stats.scene';
+import { get_users_stats_scene } from './get-users-stats.scene';
 import { subscribe_to_channel_scene } from './subscribe-to-channel.scene';
 
 const stage = new Scenes.Stage<BotContext>([
@@ -15,7 +17,9 @@ const stage = new Scenes.Stage<BotContext>([
   add_channel_scene,
   channel_stats_scene,
   change_link_scene,
-  change_text_scene
+  change_text_scene,
+  get_refs_stats_scene,
+  get_users_stats_scene
 ]);
 
 stage.hears(CONTROL_PANEL, async ctx => {

@@ -11,7 +11,7 @@ interface ISubs {
 type ISubsCreate = Omit<ISubs, 'id' | 'date'>;
 
 @Table({
-  tableName: "link_bot_subs",
+  tableName: "porn_bot_subs",
   timestamps: true
 })
 export class SubsModel extends Model<ISubs, ISubsCreate> {

@@ -45,3 +45,25 @@ export const getAdminChannelsList = (pages: ChannelsModel[][], page: number) => 
   message += `\n\nНажмите кнопку с номером канала, чтобы получить статистику!`;
   return message;
 }
+
+export const getRefsStatsMessage = (pages: UsersModel[][], page: number) => {
+  let message = `Список пользователей (Те кто может приглашать). Страница: ${page + 1}/${pages.length}:\n\n`;
+  const current = pages[page];
+
+  current.forEach((x, i) => {
+    message += `${i + 1}. ${x.username}\n`;
+  });
+
+  return message;
+}
+
+export const getRefsUserStatsMessage = (user: UsersModel, refs: IGetRefs[]) => {
+  let message = `Статистика для ${user.nickname} ${user.username ? `(@${user.username})` : ``}:\n\n`;
+  let all_time = 0;
+  refs.forEach(x => {
+    all_time += x.users.length;
+    message += `За ${x.day} - приглашено ${x.users.length}\n`;
+  });
+  message += `\nЗа всё время: ${all_time}`;
+  return message;
+}

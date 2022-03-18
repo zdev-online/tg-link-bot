@@ -8,3 +8,6 @@ export const CHANGE_LINK = "Сменить ссылку";
 export const CHANGE_TEXT = "Сменить текст ссылки";
 export const DELETE = "Удалить";
 export const BACK = "Назад";
+export const GET_REF_LINK = "Моя реферальная ссылка";
+export const GET_REF_STATS = "Статистика рефералов";
+export const USER_STATS = "Статистика пользователей";

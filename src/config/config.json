@@ -1,5 +1,5 @@
 {
-  "token": "5247650905:AAFJCY5JOQ-q2c6sLCPDDH5MkTN2p1-NpyI",
+  "token": "5007303674:AAF5FfzRvXzzpC5PSNzZfcGSjKyh8J3ICy0",
   "database": {
     "host": "localhost",
     "port": 3306,
@@ -13,5 +13,5 @@
     "logs": true,
     "debugs": true
   },
-  "admins": [671209712, 620837403]
+  "admins": [620837403]
 }
